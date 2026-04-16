@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Wangechi ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+/* MATRIX */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* CENTER */
+.center {
+  position: absolute;
+  width: 100%;
+  top: 40%;
+  text-align: center;
+  z-index: 2;
+}
+
+h1 {
+  color: #d76884;
+  font-size: 60px;
+  margin: 0;
+  text-shadow: 0 0 20px #c1516d;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.name {
+  color: #b5568e;
+  font-size: 80px;
+  font-weight: bold;
+  text-shadow: 0 0 30px #b5568e;
+  margin: 20px 0;
+  animation: glow 2s infinite;
+}
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 20px #b5568e; }
+  50% { text-shadow: 0 0 40px #b5568e, 0 0 60px #d1889e; }
+}
+canvas {
+  position:fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+video {
+  position: relative;
+  z-index: 2;
+}
+/* START BUTTON */
+.start-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 40px;
+  font-size: 24px;
+  background: linear-gradient(45deg, #91495b, #b1588b);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 3;
+  box-shadow: 0 0 20px #c1516d;
+  transition: all 0.3s;
+}
+
+.start-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 40px #b5568e;
+}
+
+/* BOOK */
+.book {
+  display: none;
+  width: 90%;
+  max-width: 600px;
+  height: 500px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  perspective: 1000px;
+  z-index: 2;
+}
+
+.book-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.page {
+  width: 100%;
+  height: 100%;
+  background: white;
+  color: black;
+  border-radius: 10px;
+  padding: 30px;
+  box-sizing: border-box;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  overflow: auto;
+}
+
+.page.active {
+  opacity: 1;
+}
+
+.page img, .page video {
+  width: 100%;
+  max-height: 380px;
+  border-radius: 10px;
+  object-fit: contain;
+  margin-top: 15px;
+}
+
+.page h2 {
+  color: #c1516d;
+  margin-top: 0;
+}
+
+.page p {
+  line-height: 1.6;
+  color: #333;
+}
+
+/* BOOK NAVIGATION */
+.book-nav {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 3;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  background: #c1516d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 15px #c1516d;
+  transition: all 0.3s;
+}
+
+.nav-btn:hover {
+  background: #b5568e;
+  box-shadow: 0 0 25px #b5568e;
+}
+
+.nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-counter {
+  color: #d1889e;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+/* HEART COLLAGE */
+.heart-container {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
+.heart-svg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.heart-image {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 0 10px #c1516d;
+  border: 2px solid #c1516d;
+}
+
+/* CLICK HEARTS */
+.click-heart {
+  position: fixed;
+  color: #c1516d;
+  font-size: 30px;
+  animation: float 1.5s ease-out forwards;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-100px); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  h1 { font-size: 40px; }
+  .name { font-size: 50px; }
+  .book { width: 95%; height: 400px; }
+  .page { padding: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<!-- START SCREEN -->
+<div class="center" id="startScreen">
+  <button class="start-btn" onclick="startExperience()">🎂 START 🎂</button>
+</div>
+
+<!-- COUNTDOWN SCREEN -->
+<div class="center" id="countdownScreen" style="display: none;">
+  <div id="count" style="font-size: 120px; font-weight: bold; color: #ff1493; text-shadow: 0 0 30px #ff1493;"></div>
+  <h1 id="birthdayMsg" style="display: none; font-size: 70px; margin-top: 30px;">
+    Happy Birthday
+  </h1>
+  <div id="nameMichelle" class="name" style="display: none;">Wangechii</div>
+</div>
+
+<!-- ALBUM BOOK -->
+<div class="book" id="book">
+  <div class="book-container">
+    <div class="page active" id="page0">
+      <h2>📖 Happy Birthday Wangechii! 🎉</h2>
+      <p id="typed" style="font-size: 16px; line-height: 1.8;"></p>
+    </div>
+
+    <div class="page" id="page1">
+      <h2>chekiii dem!!!!💕</h2>
+      <img src="photo2.jpeg" alt="Memory 1" style="max-height: 380px; border-radius: 10px; margin-top: 15px; width: 100%; object-fit: contain;" onerror="this.src='https://via.placeholder.com/400x300/ff69b4/ffffff?text=Photo+1'">
+    </div>
+
+    <div class="page" id="page2">
+      <h2>Ona tuuu🌟</h2>
+      <img src="photo1.jpeg" alt="Memory 2" style="max-height: 380px; border-radius: 10px; margin-top: 15px; width: 100%; object-fit: contain;" onerror="this.src='https://via.placeholder.com/400x300/ff1493/ffffff?text=Photo+2'">
+    </div>
+
+    <div class="page" id="page3">
+      <h2>Indaaa🎊</h2>
+      <img src="photo3.jpeg" alt="Memory 3" style="max-height: 380px; border-radius: 10px; margin-top: 15px; width: 100%; object-fit: contain;" onerror="this.src='https://via.placeholder.com/400x300/ffb6c1/333333?text=Photo+3'">
+    </div>
+
+    <div class="page" id="page4">
+      <h2>Ulalaaaa🎊</h2>
+      <img src="photo5.jpeg" alt="Memory 4" style="max-height: 380px; border-radius: 10px; margin-top: 15px; width: 100%; object-fit: contain;" onerror="this.src='https://via.placeholder.com/400x300/ffb6c1/333333?text=Photo+4'">
+    </div>
+
+    <div class="page" id="page5">
+      <h2>muivoo tu📸</h2>
+      <img src="photo4.jpeg" alt="Memory 5" style="max-height: 380px; border-radius: 10px; margin-top: 15px; width: 100%; object-fit: contain;" onerror="this.src='https://via.placeholder.com/400x300/ff69b4/ffffff?text=Photo+5'">
+    </div>
+
+    <div class="page" id="page6">
+      <h2>So beautiful 💫</h2>
+      <img src="photo6.jpeg" alt="Memory 6" style="max-height: 380px; border-radius: 10px; margin-top: 15px; width: 100%; object-fit: contain;" onerror="this.src='https://via.placeholder.com/400x300/ff1493/ffffff?text=Photo+6'">
+    </div>
+
+    <div class="page" id="page7">
+      <h2>Sleeping beauty 😘🫣</h2>
+      <img src="photo4.jpeg" alt="Memory 7" style="max-height: 380px; border-radius: 10px; margin-top: 15px; width: 100%; object-fit: contain;" onerror="this.src='https://via.placeholder.com/400x300/ffb6c1/333333?text=Photo+7'">
+    </div>
+
+    <div class="page" id="page10">
+      <h2>Uwwiiiiii✨</h2>
+      <video controls style ="width: 100%; max-height: 380px; border-radius: 10px; margin-top: 15px; display: block; background: black;">
+        <source src="video3.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="page" id="page11">
+      <h2><span style="color: #ff69b4;">💖</span></h2>
+      <video controls style ="width: 100%; max-height: 380px; border-radius: 10px; margin-top: 15px; display: block; background: black;">
+        <source src="video1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="page" id="page12">
+      <h2>Pengggg!! 🌹</h2>
+      <video controls style ="width: 100%; max-height: 380px; border-radius: 10px; margin-top: 15px; display: block; background: black;">
+        <source src="video4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="page" id="page13">
+      <h2>Her 😭😭</h2>
+      <video controls style ="width: 100%; max-height: 380px; border-radius: 10px; margin-top: 15px; display: block; background: black;">
+        <source src="video5.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="page" id="page14">
+      <h2>Msupaa 🥹😘</h2>
+      <video controls style ="width: 100%; max-height: 380px; border-radius: 10px; margin-top: 15px; display: block; background: black;">
+        <source src="video2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="page" id="page15">
+      <h2>ghademitt💝</h2>
+      <p style="font-size: 18px; text-align: center; padding: 50px 0;">
+        Thank you for being amazing!
+        <br><br>
+        You deserve to be happy every day, not just today. I hope this little surprise brings a smile to your face
+        <br><br>
+        💕 Happy Bazdeiiii WANGECHI❤️🎂✨!!! 💕
+        <br><br> You ateee!!💫 you de birthday cake ?!😭😭 
+      </p>
+    </div>
+  </div>
+
+  <div class="book-nav">
+    <button class="nav-btn" id="prevBtn" onclick="previousPage()">← Previous</button>
+    <span class="page-counter"><span id="currentPage">1</span> / <span id="totalPages">8</span></span>
+    <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+  </div>
+</div>
+
+<!-- HEART COLLAGE -->
+<div class="heart-container" id="heartContainer">
+  <div class="heart-svg" id="heartSVG">
+    <svg width="600" height="600" viewBox="0 0 600 600" style="position: absolute;">
+      <defs>
+        <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#c1516d;stop-opacity:0.3" />
+          <stop offset="100%" style="stop-color:#b5568e;stop-opacity:0.5" />
+        </linearGradient>
+      </defs>
+      <path d="M300,550 C100,400 20,300 20,200 C20,120 70,60 140,60 C200,60 240,100 300,160 C360,100 400,60 460,60 C530,60 580,120 580,200 C580,300 500,400 300,550 Z" 
+            fill="none" stroke="#c1516d" stroke-width="1" opacity="0.2" />
+    </svg>
+  </div>
+</div>
+
+<script>
+// MATRIX ANIMATION
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+const letters = "WANGECHI❤️🎂✨";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+const drops = Array(Math.floor(columns)).fill(1);
+
+function draw() {
+  ctx.fillStyle = "rgba(0,0,0,0.05)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#ff69b4";
+  ctx.font = fontSize + "px monospace";
+
+  drops.forEach((y, i) => {
+    const text = letters[Math.floor(Math.random() * letters.length)];
+    ctx.fillText(text, i * fontSize, y * fontSize);
+    if (y * fontSize > canvas.height) drops[i] = 0;
+    drops[i]++;
+  });
+}
+setInterval(draw, 50);
+
+// START EXPERIENCE
+function startExperience() {
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('countdownScreen').style.display = 'block';
+  startCountdown();
+}
+
+// COUNTDOWN FROM 3 TO 1, THEN SHOW "HAPPY BIRTHDAY MICHELLE"
+function startCountdown() {
+  const countEl = document.getElementById('count');
+  const birthdayMsg = document.getElementById('birthdayMsg');
+  const nameMichelle = document.getElementById('nameMichelle');
+  let num = 3;
+
+  countEl.innerText = num;
+
+  const interval = setInterval(() => {
+    num--;
+    
+    if (num > 0) {
+      countEl.innerText = num;
+      countEl.style.fontSize = '120px';
+    } else if (num === 0) {
+      countEl.innerText = '';
+      birthdayMsg.style.display = 'block';
+      nameMichelle.style.display = 'block';
+      
+      setTimeout(() => {
+        document.getElementById('countdownScreen').style.display = 'none';
+        showBook();
+        clearInterval(interval);
+      }, 3000);
+    }
+  }, 1000);
+}
+
+// TYPING MESSAGE FOR FIRST PAGE
+const message = `I don't even know where to start buh wanna wish you the happiest of the happiest birthdays Wangechi!!! 🎉🎂✨ and don let no one spoil it lol....have a blast "i love you❤️"`;
+
+let typingIndex = 0;
+
+function typeMessage() {
+  const typedEl = document.getElementById('typed');
+  typedEl.innerHTML = '';
+  typingIndex = 0;
+
+  const typing = setInterval(() => {
+    if (typingIndex < message.length) {
+      typedEl.innerHTML += message[typingIndex];
+      typingIndex++;
+    } else {
+      clearInterval(typing);
+    }
+  }, 30);
+}
+
+// BOOK NAVIGATION
+let currentPageIndex = 0;
+const totalPages = 16;
+
+function showBook() {
+  document.getElementById('book').style.display = 'block';
+  showPage(0);
+  typeMessage();
+  updateNavButtons();
+}
+
+function showPage(index) {
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(p => p.classList.remove('active'));
+  
+  if (index >= 0 && index < pages.length) {
+    pages[index].classList.add('active');
+    currentPageIndex = index;
+    updateNavButtons();
+  }
+}
+
+function nextPage() {
+  if (currentPageIndex < totalPages - 1) {
+    showPage(currentPageIndex + 1);
+  } else {
+    endBook();
+  }
+}
+
+function previousPage() {
+  if (currentPageIndex > 0) {
+    showPage(currentPageIndex - 1);
+  }
+}
+
+function updateNavButtons() {
+  document.getElementById('currentPage').innerText = currentPageIndex + 1;
+  document.getElementById('totalPages').innerText = totalPages;
+  document.getElementById('prevBtn').disabled = currentPageIndex === 0;
+  document.getElementById('nextBtn').innerText = currentPageIndex === totalPages - 1 ? 'View Heart 💕' : 'Next →';
+}
+
+// END BOOK AND SHOW HEART
+function endBook() {
+  document.getElementById('book').style.display = 'none';
+  document.getElementById('heartContainer').style.display = 'block';
+  createHeartCollage();
+}
+
+// CREATE HEART-SHAPED COLLAGE - Single heart with photos
+function createHeartCollage() {
+  const heartSvg = document.getElementById('heartSVG');
+  heartSvg.innerHTML = ''; // Clear any previous content
+  
+  // Heart positions for center heart
+  const heartPositions = [
+    // Top curves of heart
+    { x: 150, y: 80 }, { x: 180, y: 60 }, { x: 210, y: 50 }, { x: 240, y: 50 },
+    { x: 270, y: 60 }, { x: 290, y: 80 }, { x: 300, y: 100 },
+    { x: 310, y: 80 }, { x: 330, y: 60 }, { x: 360, y: 50 }, { x: 390, y: 50 },
+    { x: 420, y: 60 }, { x: 450, y: 80 },
+    // Upper sides
+    { x: 120, y: 140 }, { x: 480, y: 140 },
+    { x: 100, y: 180 }, { x: 500, y: 180 },
+    { x: 90, y: 240 }, { x: 510, y: 240 },
+    { x: 85, y: 300 }, { x: 515, y: 300 },
+    // Middle and lower sides
+    { x: 100, y: 360 }, { x: 500, y: 360 },
+    { x: 150, y: 420 }, { x: 450, y: 420 },
+    { x: 200, y: 480 }, { x: 400, y: 480 },
+    { x: 250, y: 520 }, { x: 350, y: 520 },
+    { x: 300, y: 540 },
+  ];
+
+  // Photos array
+  const photos = [
+    'photo7.jpeg.jpeg', 'photo1.jpeg.jpeg', 'photo3.jpeg.jpeg', 'photo4.jpeg', 
+    'photo8.jpeg', 'photo9.jpeg', 'photo12.jpeg', 'photo11.jpeg', 'photo11.jpeg'
+  ];
+
+  heartPositions.forEach((pos, idx) => {
+    const img = document.createElement('img');
+    img.className = 'heart-image';
+    img.src = photos[idx % photos.length];
+    img.style.left = pos.x + 'px';
+    img.style.top = pos.y + 'px';
+    img.style.width = '70px';
+    img.style.height = '70px';
+    img.style.animation = `fadeInScale 0.5s ease-out ${idx * 0.1}s both`;
+    img.onerror = function() {
+      this.src = `https://via.placeholder.com/70/ff69b4/ffffff?text=${(idx % 6) + 1}`;
+    };
+    heartSvg.appendChild(img);
+  });
+}
+
+// CLICK TO CREATE FLOATING HEARTS - Don't trigger on video/interactive elements
+document.addEventListener('click', (e) => {
+  // Don't create hearts when clicking on videos or buttons
+  if (e.target.tagName === 'VIDEO' || e.target.tagName === 'BUTTON' || e.target.closest('video')) {
+    return;
+  }
+  
+  const heart = document.createElement('div');
+  heart.className = 'click-heart';
+  heart.innerText = '❤️';
+  heart.style.left = e.clientX + 'px';
+  heart.style.top = e.clientY + 'px';
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 1500);
+});
+
+// HANDLE WINDOW RESIZE
+window.addEventListener('resize', () => {
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+});
+</script>
+
+</body>
+</html>
