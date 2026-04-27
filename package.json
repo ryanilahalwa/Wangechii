@@ -1,0 +1,13 @@
+{
+  "name": "wangechii",
+  "version": "1.0.0",
+  "description": "Birthday celebration site for Wangechii",
+  "private": true,
+  "scripts": {
+    "dev": "npx http-server Wangechi -p 3000",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.3.1"
+  }
+}
